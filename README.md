@@ -1,2 +1,2 @@
 # mycodesamples
-Code Samples for Michael Sok
+Code Samples for GWIG
