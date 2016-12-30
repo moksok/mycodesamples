@@ -1,0 +1,29 @@
+﻿<h1 style="border-bottom: 1px solid grey; margin-left: 20px; margin-top: -20px;">Friends</h1>
+
+<div scroll-spy="places" items="pfc.places" item-property="'placesId'" spy="pfc.scrollSpy">
+    <div class="con clearfix" ng-repeat="Place in pfc.places" style="background-color: #F6F6F6; margin-bottom: 20px;">
+        <img class="img-responsive" style="margin-bottom: 20px;" src="{{Place.url | resizeImage:640:480}}" alt="">
+        <div id="{{Place.placesId}}">
+            <div style="margin: 20px;">
+                <h2>
+                    <a style="margin-top: 20px;" href="/places/singleplace/{{Place.slug}}" target="_blank">{{Place.name}}</a>
+                </h2>
+                <h4 ng-if="Place.price == 0 || Place.price == null"><i class="fa fa-question-circle-o"></i> Price </h4>
+                <h4 ng-if="Place.price > 0"><span uib-rating ng-model="Place.price" max="Place.price" read-only="true" state-on="'glyphicon-usd'"></span>Price</h4>
+
+                <p>
+                    Your friend <a href="/user/profiles/{{Place.userName}}" target="_blank">{{Place.userName}}</a> wrote a review.
+                </p>
+                <a href="{{Place.website}}">Website</a>
+                <p>
+                    {{Place.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="loadMorePlaces text-center">
+        <a ng-click="pfc.render()" style="font-size: 3em;"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+    </div>
+

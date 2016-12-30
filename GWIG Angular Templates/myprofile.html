@@ -1,0 +1,240 @@
+﻿
+<style>
+    .body {
+        color: black;
+    }
+
+    .main-profile, .username, .name,
+    .email, .tagline, .content, .profileLabel {
+        color: black;
+    }
+
+    .avatar-display img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .fa-plus-circle {
+        color: green;
+    }
+
+    .editFormProfileInfo {
+        display: none;
+    }
+
+    .background-display img {
+        width: 700px;
+        height: 300px;
+    }
+
+    .btnz {
+        display: block;
+        float: left;
+        padding: 10px 15px;
+        border: none;
+        background-color: #ececec;
+        text-decoration: none;
+        font-size: 18px;
+        color: #FFF;
+    }
+
+        .btnz:hover {
+            color: #efefef;
+        }
+
+    .facebook {
+        background-color: #3b5998;
+    }
+
+    .dropzonebox {
+        margin-right: 50px;
+        margin-left: -20px;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Profile Info
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 main-profile">
+                                <div class="profilecontainer">
+                                    <p class="profileLabel"><strong>Username: </strong></p>
+                                    <p class="username"><span />{{myprofile.currentUser.item.userName}}</p>
+                                </div>
+
+
+                                <div class="profilecontainer">
+                                    <p class="profileLabel"><strong>Email: </strong></p>
+                                    <p class="email"><span />{{myprofile.currentUser.item.email}}</p>
+                                </div>
+
+                                <div class="profilecontainer">
+                                    
+                                    <p class="profileLabel"><i class="fa fa-plus-circle pull-left" ng-click="openNameEditForm = !openNameEditForm"></i><strong>Name: </strong></p>
+                                    <p class="name"><span ng-bind="myprofile.editUserInfoModel.firstName">{{myprofile.currentUser.item.firstName}}</span> <span ng-bind="myprofile.editUserInfoModel.lastName">{{myprofile.currentUser.item.lastName}}</span></p>
+                                    <div ng-show="openNameEditForm">
+                                        <form ng-submit="myprofile.editName()" id="nameForm" name="myprofile.nameForm" novalidate>
+                                            <label for="inputFirstName">First Name:</label>
+                                            <input type="text" 
+                                                   ng-model="myprofile.editUserInfoModel.firstName" 
+                                                   id="firstName"
+                                                   name="firstName"
+                                                   class="input ng-class:{'error': myprofile.nameError && !myprofile.nameForm.firstName.$valid}"
+                                                   required>
+
+                                            <div role="alert" class="help-inline error">
+
+                                                <span class="error" ng-show="myprofile.nameError && myprofile.nameForm.firstName.$error.required" style="color: red; font-size: 1.2em;">First name is required</span>
+
+                                            </div>
+
+                                            <label for="inputLastName">Last Name:</label>
+
+                                            <input type="text" 
+                                                   ng-model="myprofile.editUserInfoModel.lastName"
+                                                   id="lastName"
+                                                   name="lastName"
+                                                   class="input ng-class:{'error': myprofile.nameError && !myprofile.nameForm.lastName.$valid}"
+                                                   required>
+
+                                            <div role="alert" class="help-inline error">
+
+                                                <span class="error" ng-show="myprofile.nameError && myprofile.nameForm.lastName.$error.required" style="color: red; font-size: 1.2em;">Last name is required</span>
+
+                                            </div>
+
+                                            <button type="submit" ng-click="myprofile.nameForm.$valid ? openNameEditForm = false : openNameEditForm" class="btn btn-primary saveSubmit">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="profilecontainer">
+                                    <p class="profileLabel"><i class="fa fa-plus-circle pull-left" ng-click="openTagLineEditForm = !openTagLineEditForm"></i><strong>Tagline: </strong></p>
+                                    <p class="tagline"><span ng-bind="myprofile.editUserInfoModel.tagLine">{{myprofile.currentUser.item.tagLine}}</span><span /></p>
+                                    <div ng-show="openTagLineEditForm">
+                                        <form ng-submit="myprofile.editName()">
+                                            <textarea rows="4" cols="40" class="input" ng-model="myprofile.editUserInfoModel.tagLine">
+                                                {{myprofile.currentUser.item.tagLine}}
+                                            </textarea>
+                                            <button type="submit" ng-click="openTagLineEditForm = false" class="btn btn-primary saveSubmit">Save</button>
+                                        </form>                                  
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="profilecontainer">
+                                    <p class="profileLabel"><i class="fa fa-plus-circle pull-left" ng-click="openProfileContentEditForm = !openProfileContentEditForm"></i><strong>Content: </strong></p>
+                                    <p class="content"><span ng-bind="myprofile.editUserInfoModel.profileContent">{{myprofile.currentUser.item.profileContent}}</span><span /></p>
+                                    <div ng-show="openProfileContentEditForm">
+                                        <form ng-submit="myprofile.editName()" validate>
+                                            <textarea rows="6" cols="75" class="input" ng-model="myprofile.editUserInfoModel.profileContent" required>
+                                                {{myprofile.currentUser.item.profileContent}}
+                                            </textarea>
+                                            <button type="submit" ng-click="openProfileContentEditForm = false" class="btn btn-primary saveSubmit">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--<a class="btnz share facebook" href="#"><i class="fa fa-facebook"></i> Share</a>-->
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Avatar Upload
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <!-- Non angular dropzone html section
+                            <div class="col-md-4">
+                                <div action="/api/media" class="dropzone" id="addmediadropzone" method="post" enctype="multipart/form-data">
+                                    <button class="btn btn-primary submitProfilePicture" type="submit">Save</button>
+                                    <div class="dz-message" data-dz-message><span>Upload Your An Avatar Here</span></div>
+                                </div>
+                            </div>-->
+                            <!--DropZone Angular HTML section-->
+                            <div class="col-md-4 dropzonebox">
+                                <div class="dropzone groupDzMessage center"
+                                     action="/api/media"
+                                     method="post"
+                                     enctype="multipart/form-data"
+                                     ng-dropzone
+                                     dropzone="myprofile.dzCallbacks"
+                                     options="myprofile.dzOptions"
+                                     event-handlers="{ 'addedfile': myprofile.dzAddedFile, 'error': myprofile.dzError, 'sending': myprofile.dzSending, 'maxfilesexceeded': myprofile.dzMaxFileExceeded, 'success': myprofile.dzSuccess }">
+                                    <div class="dz-message" data-dz-message>
+                                        <span class="text-center">Add your Profile Picture here!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--End of DropZone Angular HTML section-->
+                            <div class="col-md-4 avatar-display">
+                                <img src="{{myprofile.currentUser.item.myMedia.url}}" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Background Upload
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <!--
+                            <div class="col-md-4">
+                                <div action="/api/media" class="dropzone" id="addmediadropzoneBackground" method="post" enctype="multipart/form-data">
+                                    <button class="btn btn-primary" id="submitBackGroundPicture" type="submit">Save</button>
+                                    <div class="dz-message" data-dz-message><span>Upload Your An Background Here</span></div>
+                                </div>
+                            </div>-->
+                            <!--DropZone Angular HTML section for BACKGROUND-->
+                            <div class="col-md-4 dropzonebox">
+                                <div class="dropzone groupDzMessage center"
+                                     action="/api/media"
+                                     method="post"
+                                     enctype="multipart/form-data"
+                                     ng-dropzone
+                                     dropzone="myprofile.dzCallbacks"
+                                     options="myprofile.dzOptions"
+                                     event-handlers="{ 'addedfile': myprofile.dzAddedFile, 'error': myprofile.dzError, 'sending': myprofile.dzBgSending, 'maxfilesexceeded': myprofile.dzMaxFileExceeded, 'success': myprofile.dzBgSuccess }">
+                                    <div class="dz-message" data-dz-message>
+                                        <span class="text-center">Add your Background Photo here!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DropZone Angular HTML section-->
+
+                            <div class="col-md-4 background-display">
+                                <img src="{{myprofile.currentUser.item.bgMyMedia.url}}" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

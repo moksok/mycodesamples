@@ -1,0 +1,109 @@
+﻿
+<div class="container" style="background-color: #f5f5f6;">
+    <div class="row">
+        <div class="col-md-12" style="overflow: auto;">
+            <div>
+                <div class="row">
+
+                    <div class="timeline-centered" style="padding: 10px;">
+                        <article class="timeline-entry" ng-repeat="activity in dashboard.eventFeed track by activity.id">
+                            <div class="timeline-entry-inner">
+
+                                <div class="timeline-icon" ng-hide="activity.eventType != 1">
+                                    <i class="fa fa-registered" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon" ng-hide="activity.eventType != 2">
+                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-primary" ng-hide="activity.eventType != 3">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-secondary" ng-hide="activity.eventType != 4">
+                                    <i class="fa fa-list-ol" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-danger" ng-hide="activity.eventType != 5">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon" ng-hide="activity.eventType != 6">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon" ng-hide="activity.eventType != 7">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-info" ng-hide="activity.eventType != 8">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-warning" ng-hide="activity.eventType != 9">
+                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-success" ng-hide="activity.eventType != 10">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </div>
+
+                                <div class="timeline-label" ng-hide="activity.eventType != 1">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>registered for </span>GWIG!</h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 2">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>uploaded a new profile picture!</span></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 3">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>joined a group called </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 4">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>posted a mission </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 5">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>wrote a review for </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 6">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>voted on </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 7">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>uploaded a new place </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 8">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>discovered a new place </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 9">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>is following </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                                <div class="timeline-label" ng-hide="activity.eventType != 10">
+                                    <h2><a href="https://clusterflock.dev{{activity.actorUrl}}" target="_blank">{{activity.actorDisplayName}}</a> <span>is following </span><a href="https://clusterflock.dev{{activity.targetUrl}}" target="_blank">{{activity.targetDisplayName}}</a></h2>
+                                    {{activity.time | formatTime:'MM/DD/YYYY hh:mm:A'}}
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="timeline-entry begin">
+                            <div class="timeline-entry-inner">
+                                <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
+                                    <i class="entypo-flight"></i> +
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <ul style="border-radius: 50% !important;margin: 0 5px;" class="pagination" uib-pagination total-items="ctrl.totalEventFeedItems" ng-model="ctrl.eventPage" ng-change="ctrl.pageChanged()" items-per-page="ctrl.eventsPerPage"
+                        max-size="6"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

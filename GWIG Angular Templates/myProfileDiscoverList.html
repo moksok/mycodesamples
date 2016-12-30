@@ -1,0 +1,79 @@
+﻿
+<div class="">
+    <div class="card hovercard" style="background: url('{{dmpc.profile.bgMyMedia.url}}')">
+        <div class="card-background">
+            <img class="" alt="" src="">
+
+        </div>
+        <div class="useravatar">
+            <img alt="" src="{{dmpc.profile.myMedia.url}}">
+        </div>
+        <div class="card-info">
+            <a  target="_blank" href="/user/profiles/{{dmpc.profile.userName}}"><span class="card-title">{{dmpc.profile.userName}}</span></a>
+        </div>
+    </div>
+
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+
+        <div class="btn-group" role="group"  ng-repeat="tab in dmpc.tabs">
+            <a class="btn btn-default" ng-class="{ 'discoverActive' : dmpc.selectedTab == tab }" ng-href="#/user/{{dmpc.profile.userName}}/{{tab.url}}" style="overflow-wrap">
+                <span class="glyphicon glyphicon-star" aria-hidden="true" ng-if="tab.label == 'Reviewed'"></span>
+                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true" ng-if="tab.label == 'Want To Go'"></span>
+                <span class="glyphicon glyphicon-check" aria-hidden="true" ng-if="tab.label == 'Been There'"></span>
+                <span class="glyphicon glyphicon-map-marker" aria-hidden="true" ng-if="tab.label == 'Following'"></span>
+                <div class="hidden-xs">{{tab.label}}</div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<br />
+
+<div scroll-spy="places" items="dmpc.places" item-property="'placesId'" spy="dmpc.scrollSpy">
+    <div class="con clearfix" ng-repeat="Place in dmpc.places" style="background-color: #F6F6F6; margin-bottom: 20px;" >
+        <img class="img-responsive" style="margin-bottom: 20px;" src="{{Place.url | resizeImage:640:480}}" alt="{{Place.name}}">
+        <div id="{{Place.placesId}}">
+            <div style="margin: 20px;">
+                <h2>
+                    <a style="margin-top: 20px;" href="/places/singleplace/{{Place.slug}}" target="_blank">{{Place.name}}</a>
+                </h2>
+                <h4 ng-if="Place.price == 0 || Place.price == null"><i class="fa fa-question-circle-o"></i> Price </h4>
+                <h4 ng-if="Place.price > 0"><span uib-rating ng-model="Place.price" max="Place.price" read-only="true" state-on="'glyphicon-usd'"></span>Price</h4>
+                <p>{{Place.address1}}</p>
+                <p>{{Place.city}}, {{Place.state}} {{Place.zipCode}}</p>
+                <p>{{Place.phoneNumber}}</p>
+                <a href="{{Place.website}}">Website</a>
+                <div ng-if="Place.review">
+                    <uib-accordion close-others="true">
+                        <div uib-accordion-group class="panel-default" heading="Click to see your review">
+                            <div class="ttshowcase_rl_box tt_2cl tt_text_left" style="padding-left: 10px">
+                                <div class="ttshowcase_rl_breed">
+                                    <div class="ttshowcase_rl_info_wrap tt_info-left tt_text_center">
+                                        <div class="ttshowcase_rl_aditional_info ">
+                                            <div class="ttshowcase_rl_title reviewer">
+                                                {{ Place.subject }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tt_quote_info-left ttshowcase_rl_quote_sided summary">
+                                        <div class="ttshowcase_rl_quote">
+                                            <p style="color: black">{{ Place.review }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span uib-rating ng-model="Place.rating" max="{{Place.rating}}" read-only="true" aria-labelledby="default-rating" style="color: #FFDF00"></span>
+
+                                <div class="dateCreated">{{ Place.created | date }}</div>
+                            </div>
+                        </div>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

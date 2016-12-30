@@ -1,0 +1,22 @@
+﻿<div scroll-spy="places" items="pc.places" item-property="'id'" spy="pc.scrollSpy">
+    <div class="con clearfix" ng-repeat="Place in pc.places" style="background-color: #F6F6F6; margin-bottom: 20px;">
+        <img class="img-responsive" ng-src="{{Place.mediaurl}}" alt="">
+        <div id="{{Place.id}}">
+            <div style="margin: 20px;">
+                <h2>
+                    <a style="margin-top: 20px;" href="/places/singleplace/{{Place.slug}}" target="_blank">{{Place.name}}</a>
+                </h2>
+                <h4 ng-if="Place.price == 0 || Place.price == null"><i class="fa fa-question-circle-o"></i> Price </h4>
+                <h4 ng-if="Place.price > 0"><span uib-rating ng-model="Place.price" max="Place.price" read-only="true" state-on="'glyphicon-usd'"></span>Price</h4>
+
+                <p>{{Place.address1}}</p>
+                <p>{{Place.city.name}}, {{Place.state}} {{Place.zipcode}}</p>
+                <p>{{Place.phonenumber}}</p>
+                <a href="{{Place.website}}">Website</a>
+                <p>
+                    {{Place.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

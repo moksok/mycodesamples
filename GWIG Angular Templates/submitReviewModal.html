@@ -1,0 +1,26 @@
+﻿<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="mc.cancel()">&times;</button>
+        <h2 class="modal-title" style="color: black">Submit your Review!</h2>
+    </div>
+    <div class="modal-body" ng-controller="starRatingController as src">
+        <form ng-submit="mc.submitReview(src.rate)" name="mc.submitReviewForm" id="submitReviewForm">
+            <span style="font-size: 2em; color: #FFDF00;" ng-init="src.rate = 4" uib-rating ng-model="src.rate" max="max" read-only="isReadonly" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating" required></span>
+            <div class="form-group">
+                <label for="reviewSubject">Subject</label>
+                <input class="form-control" ng-model="mc.submitReviewModel.Subject" required>
+            </div>
+
+            <div class="form-group">
+                <label for="reviewDescription">Description</label>
+                <textarea class="form-control ng-class:{'error': mc.submitReviewErrors && !mc.submitReviewForm.description.$valid}" ng-model="mc.submitReviewModel.Review" rows="6" name="description" id="description" required></textarea>
+                <div role="alert" class="help-inline error">
+                    <span class="error" ng-show="mc.submitReviewErrors && mc.submitReviewForm.description.$error.required">Review is required</span> <!-- errors for specific fields can be accessed with the syntax [form name].[field name].$error.[validator name] -->
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+        </form>
+    </div>
+
+</div>
