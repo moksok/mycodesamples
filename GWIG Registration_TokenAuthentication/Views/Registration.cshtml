@@ -1,0 +1,270 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_LayoutAlternate.cshtml";
+}
+
+
+<div class="top_promo_block">
+    <div class="auth_container">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-sm col-sm-6 col-md-7">
+                    <div class="auth_descr hidden-xs">
+                        <a href="#" class="menu_xs hidden-md hidden-sm hidden-lg">
+                            <i class="fa fa-bars fa-2x"></i>
+                        </a>
+                        <h2>
+                            <strong>
+                                Go Where I GO
+                            </strong>
+                            <span>:</span>
+                            <span class="yellow">
+                                Auth
+                            </span>
+                        </h2>
+                        <p>
+                            The theme allows you to switch from classical registration by e-mail to register by entering the phone (password comes to the phone). SMS comes in more than 200 countries. You can also enter through 20+ social networks.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="reg_image_container">
+                        <div class="reg_block">
+                            <div class="btn-hack">
+                                <div class="btn-back">
+                                    <div class="authorization register_p">
+                                        <div class="authorization_head clearfix">
+                                            <p class="auth_p pull-left">
+                                                Registration
+                                            </p>
+                                            <a href="register.html" class="reg_close" id="reg_close">
+                                                <i class="fa fa-times fa-2x pull-right"></i>
+                                            </a>
+                                        </div>
+                                        <div class="authorization_form">
+                                            <div class="auth_input clearfix">
+                                                <div class="icon">
+                                                    <i class="fa fa-user fa-2x"></i>
+                                                </div>
+                                                <label class="enter_label">
+                                                    Enter name:
+                                                </label>
+                                                <input type="text" class="e-mail_in form-control" name="display_name" id="display_name" placeholder="Nick">
+                                            </div>
+                                            <div class="auth_input clearfix">
+                                                <div class="icon">
+                                                    <i class="fa fa-user fa-2x"></i>
+                                                </div>
+                                                <label class="enter_label">
+                                                    Password:
+                                                </label>
+                                                <input type="text" class="e-mail_in form-control" name="pass" id="regpass" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="auth_login">
+                                            <button class="ladda-button ladda-primary btn btn-primary" id="tryreg" onclick="reg();" data-color="red" data-style="zoom-out"><span class="ladda-label">Register</span><span class="ladda-spinner"></span></button>
+                                            <span id="result">
+                                            </span>
+                                            <script>
+                                                function reg() {
+                                                    jQuery.post("wp-content/plugins/GeoCity/ajaxb19e.html?tryreg=1", { "regemail": jQuery("#regemail").val(), display_name: jQuery("#display_name").val(), login: jQuery("#reglogin").val(), pass: jQuery("#regpass").val() }, function (d) {
+                                                        jQuery("#result").html(d);
+                                                    });
+                                                }
+                                            </script>
+                                        </div>
+                                        <div class="auth_soc_network">
+                                            <p> Log in with social network</p>
+                                            <div class="soc_net">
+
+                                                <div class="oneall_social_login">
+                                                    <div class="oneall_social_login_providers" id="oneall_social_login_providers_9943985" style="visibility: visible; background-color: rgb(239, 223, 223); color: rgb(184, 12, 20); padding: 10px; line-height: 16px; font-size: 11px; border: 1px dashed rgb(184, 12, 20); display: block;"><strong>[OneAll]</strong> To enforce the security of our services we require each domain to be whitelisted. Please <a style="color:#333;text-decoration: underline;" target="_blank" href="http://app.oneall.com/applications/application/settings/security/?applicationid=363261">click here to open your security settings</a> and whitelist the domain <strong></strong>. Reload this page afterwards.</div>
+                                                    <script type="text/javascript">
+                                                        var _oneall = _oneall || [];
+                                                        _oneall.push(['social_login', 'set_providers', ['facebook', 'google', 'instagram', 'twitter']]);
+                                                        _oneall.push(['social_login', 'set_callback_uri', (window.location.href + ((window.location.href.split('?')[1] ? '&amp;' : '?') + "oa_social_login_source=login"))]);
+                                                        _oneall.push(['social_login', 'set_custom_css_uri', 'http://public.oneallcdn.com/css/api/socialize/themes/wordpress/default.css']);
+                                                        _oneall.push(['social_login', 'do_render_ui', 'oneall_social_login_providers_9943985']);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form role="form" id="registration-form">
+                                    <div class="btn-front">
+                                        <div class="authorization">
+                                            <div class="authorization_head clearfix">
+                                                <p class="edited auth pull-left" id="edited_Autorization1">Sign Up</p>
+                                            </div>
+
+                                            <div class="authorization_form">                                              
+                                                <div class="auth_input clearfix">
+                                                    <div class="icon">
+                                                        <i class="fa fa-genderless fa-2x"></i>
+                                                    </div>
+                                                    <label style="color:black" for="Username" class="enter_label control-label">Username:</label> <span id="green1" style="color:green"></span>
+                                                    <input id="Username" type="text" class="form-control e-mail_in" placeholder="Enter your username" name="Username">
+                                                </div>                                              
+                                                <div class="auth_input clearfix">
+                                                    <div class="icon">
+                                                        <i class="fa fa-envelope fa-2x"></i>
+                                                    </div>
+                                                    <label style="color:black" for="Email" class="enter_label control-label">Email:</label> <span id="green1" style="color:green"></span>
+                                                    <input id="Email" type="text" class="form-control e-mail_in" placeholder="Enter your email" name="Email">
+                                                </div>
+                                                <div class="auth_input clearfix">
+                                                    <div class="icon">
+                                                        <i class="fa fa-key fa-2x"></i>
+                                                    </div>
+                                                    <label style="color:black" for="Password" class="enter_label control-label">Password:</label>
+                                                    <input type="password" class="form-control e-mail_in" id="Password" placeholder="Enter your password" name="Password">
+                                                </div>
+                                            </div>
+                                            <div class="auth_login">
+                                                <p style="color:black"> By clicking Sign Up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> .</p>
+                                                <button type="button" class="ladda-button ladda-primary btn btn-primary" id="try_login" data-color="red" data-style="zoom-out"><span class="ladda-label">Sign Up</span><span class="ladda-spinner"></span></button>
+                                                <div class="" id="loginresult"><a href="wp-loginc2b6.html?action=lostpassword">Lost your password?</a></div>
+                                            </div>
+                                            <!--
+                                            <div class="auth_soc_network">
+                                                <p> Log in with social network</p>
+                                                
+                                                <div class="soc_net">
+
+                                                    <div class="oneall_social_login">
+                                                        <div class="oneall_social_login_providers" id="oneall_social_login_providers_8699747" style="visibility: visible; background-color: rgb(239, 223, 223); color: rgb(184, 12, 20); padding: 10px; line-height: 16px; font-size: 11px; border: 1px dashed rgb(184, 12, 20); display: block;"><strong>[OneAll]</strong> To enforce the security of our services we require each domain to be whitelisted. Please <a style="color:#333;text-decoration: underline;" target="_blank" href="http://app.oneall.com/applications/application/settings/security/?applicationid=363261">click here to open your security settings</a> and whitelist the domain <strong></strong>. Reload this page afterwards.</div>
+                                                        <script type="text/javascript">
+                                                            var _oneall = _oneall || [];
+                                                            _oneall.push(['social_login', 'set_providers', ['facebook', 'google', 'instagram', 'twitter']]);
+                                                            _oneall.push(['social_login', 'set_callback_uri', (window.location.href + ((window.location.href.split('?')[1] ? '&amp;' : '?') + "oa_social_login_source=login"))]);
+                                                            _oneall.push(['social_login', 'set_custom_css_uri', 'http://public.oneallcdn.com/css/api/socialize/themes/wordpress/default.css']);
+                                                            _oneall.push(['social_login', 'do_render_ui', 'oneall_social_login_providers_8699747']);
+                                                        </script>
+                                                    </div>
+                                                </div>                                             
+                                            </div>
+                                        -->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header authorization_head text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="auth">Modal Header</h4>
+            </div>
+            <div class="modal-body text-center">
+                <p style="color: black">Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/sabio.services.register.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js">
+
+    </script>
+    <script type="text/javascript">
+        sabio.page.startUp = function () {
+            sabio.page.initializeRegistrationValidation();
+
+            $('#try_login').on('click', sabio.page.handlers.registerNewUser);
+
+        };
+
+        // Client side validation via jQuery.validate()
+        sabio.page.initializeRegistrationValidation = function () {
+
+            $.validator.setDefaults({
+                debug: true
+            });
+
+            //$.validator.addMethod("regex", function (value, element, regexpr) {
+            //   return regexpr.test(value);
+            //}, "Please enter at least 6 characters and have at least one of the following: (0-9), (A-Z), (a-z), (!#$%^&*).");
+
+            $('#registration-form').validate({
+                rules: {
+                    "Password": { // Password is required and must meet minimum requirements
+                        required: true,
+                        
+                    },
+                    "Email": { // Email is required and must be a valid email address
+                        required: true, 
+                        email: true
+                    },
+                    "Username": {
+                        required: true,
+                        
+                    }
+                },
+                // Error messages to display for user
+                messages: {
+                    "Password": {
+                        required: "Password is required."
+                    },
+                    "Email": {
+                        required: "Email is required.",
+                        email: "Please enter a valid email address."
+                    },
+                    "Username": {
+                        required: "Username is required."
+                    }
+                }
+            });
+        };
+
+        // Grabs email and password for JSON data and calls AJAX function with payload
+        sabio.page.handlers.registerNewUser = function (event) {
+            event.preventDefault();
+
+            if ($('#registration-form').valid()) {
+                var newUserObject = {
+                    Email: $('#Email').val(),
+                    Password: $('#Password').val(),
+                    Username: $('#Username').val()
+                }
+
+                sabio.services.register.insert(newUserObject, sabio.page.handlers.registerNewUserSuccess, sabio.page.handlers.registerNewUserError);
+            }
+        };
+
+        // AJAX success function console logs a success message
+        sabio.page.handlers.registerNewUserSuccess = function (newUserData) {
+
+            console.log("register new user success");
+
+            $(".modal-header h4").html("Thank you for registering!")
+            $(".modal-body p").html("Please check your email and follow the link to activate your account.");
+            $("#loginModal").modal("show");
+            $('#registration-form').hide();
+        };
+
+        // AJAX error function console logs an error message
+        sabio.page.handlers.registerNewUserError = function (errorMessage) {
+            console.log(errorMessage);
+        };
+    </script>
+}
+
