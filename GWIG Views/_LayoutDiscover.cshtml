@@ -1,0 +1,477 @@
+﻿@*@model Sabio.Web.Models.ViewModels.TagsViewModel*@
+@model Sabio.Web.Models.ViewModels.BaseViewModel
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: https://ogp.me/ns#">
+
+<!-- Mirrored from city1.wpmix.net/places/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Oct 2016 10:14:00 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Discover Places</title>
+    <link href="~/Content/discovermap.css" rel="stylesheet" />
+    <link rel="canonical" href="index.html" />
+    <link rel="next" href="page/2/index.html" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="object" />
+    <meta property="og:title" content="Discover Places" />
+    <meta property="og:url" content="index.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Discover Places" />
+    <link rel='stylesheet' id='mycity_fonts_google-css' href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah&amp;ver=4.5.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='mycity_fonts_google_roboto-css' href='https://fonts.googleapis.com/css?family=Roboto%3A400%2C100italic%2C100%2C300%2C300italic%2C400italic%2C500%2C500italic%2C700%2C700italic%2C900%2C900italic%26%23038%3Bsubset%3Dlatin%2Ccyrillic%2Ccyrillic-ext%2Clatin-ext%2Cgreek-ext%2Cgreek%2Cvietnamese&amp;ver=4.5.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='mycity_fonts_google_custum-css' href='https://fonts.googleapis.com/css?family=Oswald&amp;ver=4.5.4' type='text/css' media='all' />
+    <link href="~/Assets/bower_components/bootstrap-star-rating/css/star-rating.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/bower/bootstrap/css");
+
+    @Styles.Render("~/theme/mycity/css");
+
+
+    <style type="text/css">
+        .angular-google-map-container {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .selected {
+            background-color: red;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body id='hero' class="archive post-type-archive post-type-archive-places places-22071 wpb-js-composer js-comp-ver-4.11.2 vc_responsive"
+      ng-app="GWIG"
+      data-ng-controller="navigationController as navigation">
+
+    <a href="#" class="toptop"></a>
+    <div class="anchor">
+        <i class="fa fa-angle-double-up"></i>
+    </div>
+
+    @Html.Partial("Partials/GlobalNavigationMenu", Model)
+
+    @*Hamburger Button*@
+    <div class="mycity_o-grid__item mycity_menu-btn " style="">
+        <button class="c-hamburger c-hamburger--rot" ng-click="navigation.toggleNav()">
+            <span>
+                toggle menu
+            </span>
+        </button>
+    </div>
+
+    @*Map Controller*@
+    <div id="map" data-ng-controller="mapController as map">
+        <ui-gmap-google-map center='map.map.center' zoom='map.map.zoom' options='map.map.options'>
+            <ui-gmap-markers models="map.markers" 
+                             fit="false" 
+                             coords="'self'" 
+                             events="map.map.markersEvents" 
+                             options="'options'" 
+                             idkey="map.markers.id">
+
+                <ui-gmap-windows 
+                                 show="map.map.window.show"
+                                 templateUrl="'template'"
+                                 templateParameter="'info'">  
+                   
+                </ui-gmap-windows>
+            </ui-gmap-markers>
+        </ui-gmap-google-map>
+    </div>
+    <div class="row site" ng-switch on="navigation.sideBarViewSwitch()">
+        <!-- Hamburger side bar -->
+        <div class="col-md-1 general_menu inner" ng-cloak="true" style="padding-top: 50px; overflow-y: scroll;">
+
+            <div ng-switch-default>
+                <ul class="categoryBody">
+                    <li class="theClassImg fx-bounce-right fx-dur-600 fx-ease-none fx-stagger-0">
+                        <a class="all_cats" ng-class="{selected: navigation.selectedCat.tagSlug == 'all'}" ng-click="navigation.onLoadAll()">All</a>
+                    </li>
+                    <li uib-tooltip="{{Category.tagName}}" class="theClassImg fx-bounce-right fx-dur-600 fx-ease-none fx-stagger-0" ng-repeat="Category in navigation.allcategories track by Category.id">
+                        <a class="all_cats" style="cursor:pointer;" ng-class="{selected: Category.tagSlug === navigation.selectedCat}" ng-click="navigation.onLoadCat(Category)">
+                            <!-- set as vm.selectedCategory-->
+                            <i class="{{Category.img}}"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div ng-switch-when="/friends">
+                <ul class="categoryBody sideBarFriendView">                   
+                    <li ng-repeat="friend in navigation.friendList | limitTo: 10" class="theClassImg fx-bounce-right fx-dur-600 fx-ease-none fx-stagger-0" uib-tooltip="{{friend.userName}}">
+                        <img class="img-responsive img-circle text-center" src="{{friend.profileUrl}}" ng-click="navigation.seeFriendPlace(friend.userId)" />
+                    </li>
+                </ul>
+            </div>
+
+            <div ng-switch-when="/network">
+                <ul class="categoryBody sideBarFriendView">
+
+                    <li ng-repeat="friend in navigation.friendList | limitTo: 10" class="theClassImg fx-bounce-right fx-dur-600 fx-ease-none fx-stagger-0" uib-tooltip="{{friend.userName}}">
+                        <img class="img-responsive img-circle text-center" src="{{friend.profileUrl}}" ng-click="navigation.seeNetworkPlace(friend.userId)" />
+                    </li>
+                </ul>
+            </div>
+            <hr />
+           
+        </div>
+
+        <div id="places" class="col-md-3 side-bar discover fx-bounce-down fx-ease-sine fx-dur-600" style="padding-top:50px;" ng-show="navigation.showPlaces">
+
+            <h1 ng-cloak ng-switch-default>
+                <i class="fa fa-map-o"></i>
+                <a style="cursor:pointer;"
+                   buttons="no"
+                   editable-select="navigation.cityDropdown"
+                   onshow="navigation.loadCities()"
+                   e-ng-options="c.slug as c.name for c in navigation.cities"
+                   e-ng-change="navigation.showCity($data)">
+                    {{ navigation.city.name || 'Choose a City...' }}
+                </a>
+            </h1>
+
+            <div ng-switch-default geocoder-typeahead location="navigation.location" radius="'250'" result="navigation.newPlace.locationData" on-select="navigation.selectPlace"></div>
+
+            <h1 ng-switch-when="/myprofile"></h1>
+            <hr />
+            <div ng-view></div>
+
+        </div>
+
+
+        <!-- Render Body of Discover.cshtml -->
+        <div class="hidden">
+            @RenderBody();
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="sarah-modal-body">
+            <a class="evolbclose" ng-click="mc.cancel()">X</a>
+            <div class="text-center">
+                <h1 style="color:red">{{mc.modalContent.name}}</h1>
+                <img src="{{mc.pictureContent}}" class="modal-cover-photo" style="width: 100%; height: 250px; " />
+            </div>
+            <div class="text-center">
+                <h2 style="color:red">Congrats! You have discovered {{mc.modalContent.name}}!</h2>
+            </div>
+            <div class="form-group has-feedback myModal">
+                <label class='edited pull-left' id='edited_categoryaddplaces'>Category:</label>
+                <select name='Category' class='form-control' id='category'
+                        data-ng-model="mc.selectedCategory"
+                        ng-options="category as category.tagName for category in mc.categoryContent" ng-change="mc.onCategoryChange()" required></select>
+            </div>
+            <div class="form-group has-feedback myModal">
+                <label class='edited col-lg-12 myModal' >Attribute:</label>
+                <select class="form-control col-lg-6" style="width:89%" ng-options="attrib.attributeName for attrib in mc.attributes track by attrib.attributeName" ng-model="mc.attribute"></select>
+                <button type="button" class="btn btn-danger" ng-click="mc.addAttribute()"><i class="fa fa-plus"></i> Add</button>
+            </div>
+            <div class="form-group has-feedback myModal" ng-repeat="attrib in mc.addedAttributes track by attrib.attributeName">
+                <label class="edited">{{attrib.attributeName}}</label>
+                <input type="text" class="form-control" ng-if="attrib.attributeType === 0" ng-model="attrib.value" />
+                <input type="number" class="form-control" ng-if="attrib.attributeType === 1 || attrib.attributeType === 2" ng-model="attrib.value" />
+            </div>
+            <div class="form-group has-feedback myModal">
+                <label class='edited pull-left' id='edited_tagsaddplaces'>Tags:</label>
+                <select name='Tags' class='form-control' id='tagsSelect'
+                        chosen
+                        multiple
+                        data-ng-model="mc.selectedFreeTag"
+                        ng-options="tag as tag.tagName for tag in mc.freeTagContent"></select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" ng-click="mc.save()">Save</button>
+        </div>
+    </script>
+
+
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var MyCity_map_init_obj = {
+            "theme_url": "http:\/\/city1.wpmix.net\/wp-content\/themes\/mycity",
+            "global_map_styles": "1",
+            "lat": "43.116161",
+            "longu": " 131.881485",
+            "zum": "15",
+            "ajaxurl": "http:\/\/city1.wpmix.net\/wp-admin\/admin-ajax.php",
+            "direct": "http:\/\/city1.wpmix.net\/wp-content\/themes\/mycity",
+            "weather_latitude": "43.12028979999999",
+            "weather_longitude": "43.12028979999999,",
+            "weather_APPID": "c39d8355f8ee9774018ab4f6a3665aac",
+            "hide_paralax": "false",
+            "uber_dp": "15",
+            "uber_sd": "1",
+            "geolocation": "1",
+            "weather": "s2"
+        };
+        /* ]]> */
+    </script>
+
+    <link href="~/Content/discovermap.css" rel="stylesheet" />
+    <link href="~/Assets/bower_components/chosen/chosen.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var APPNAME = 'GWIG';
+    </script>
+
+    @Scripts.Render("~/bower/jquery")
+
+    @Scripts.Render("~/bower/angular")
+
+    @Scripts.Render("~/sabio/base")
+
+    @Scripts.Render("~/theme/mycity/js")
+
+
+
+
+    @*Google Maps API*@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfjV9V4DmEFQgOqomUlt93W2hk5FnuJE&libraries=places"></script>
+
+    @*Bower Components*@
+    <script src="~/Assets/bower_components/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="~/Assets/bower_components/ng-fx/dist/ngFx.min.js"></script>
+    <script src="~/Assets/bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="~/Assets/bower_components/lodash/lodash.js"></script>
+    <script src="~/Assets/bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="~/Assets/bower_components/bootstrap/js/affix.js"></script>
+    <script src="~/Assets/bower_components/bootstrap/js/scrollspy.js"></script>
+    <script src="~/Assets/bower_components/chosen/chosen.jquery.js"></script>
+    <script src="~/Assets/bower_components/angular-chosen-localytics/dist/angular-chosen.js"></script>
+    <script src="~/Assets/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="~/Assets/bower_components/bootstrap-star-rating/js/star-rating.min.js"></script>
+
+    <script type="text/javascript">
+        (function ($sabio) {
+            $sabio.moduleOptions.extraModuleDependencies.push("uiGmapgoogle-maps");
+            $sabio.moduleOptions.extraModuleDependencies.push("localytics.directives");
+            $sabio.moduleOptions.extraModuleDependencies.push("ngFx");
+        }(sabio))
+    </script>
+
+    <script src="~/Scripts/sabio/sabio.module.xeditable.js"></script>
+
+    @RenderSection("pageInitScripts", required: false)
+
+    @Scripts.Render("~/sabio/core")
+
+    @*Angular Factory Services*@
+    <script src="~/Scripts/sabio/app/services/cityService.js"></script>
+    <script src="~/Scripts/sabio/app/services/placesService.js"></script>
+    <script src="~/Scripts/sabio/app/services/tagsService.js"></script>
+    <script src="~/Scripts/sabio/app/services/addressService.js"></script>
+    <script src="~/Scripts/sabio/app/services/utilityService.js"></script>
+    <script src="~/Scripts/sabio/app/services/personalizedService.js"></script>
+    <script src="~/Scripts/sabio/app/services/imagesService.js"></script>
+    <script src="~/Scripts/sabio/app/services/groupsService.js"></script>
+    <script src="~/Scripts/sabio/app/services/mediaService.js"></script>
+    <script src="~/Scripts/sabio/app/services/userProfileService.js"></script>
+    <script src="~/scripts/sabio/app/services/missionsservice.js"></script>
+    <script src="~/scripts/sabio/app/services/missionplacesservice.js"></script>
+
+    @*Angular Controllers*@
+    <script src="~/Scripts/sabio/app/discover/controllers/navigation.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/map.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/place.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/personalizedNetworkController.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/personalizedFriendsController.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/groupsDiscoverController.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/discoverMyProfileController.js"></script>
+    <script src="~/Scripts/sabio/app/discover/controllers/missionsDiscoverController.js"></script>
+    @*Angular Module.Config*@
+    <script src="~/Scripts/sabio/app/discover/module.discover.config.js"></script>
+    <script src="~/scripts/sabio/app/filters/imagefilters.js"></script>
+    <script src="~/Scripts/sabio/app/services/imagesService.js"></script>
+    <script src="~/Scripts/sabio/app/directives/scrollSpyDirective.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+
+    <!-- Template for side bar -->
+
+    <script>
+        (function () {
+            "use strict";
+
+            angular.module(APPNAME)
+                .controller('modalController', ModalController);
+
+            ModalController.$inject = ['$scope', '$baseController', '$uibModalInstance', 'modalContent', 'pictureContent', 'categoryContent', 'freeTagContent', 'cityContent', '$placesService', '$utilityService', '$entitiesService']
+
+            function ModalController(
+                $scope
+                , $baseController
+                , $uibModalInstance
+                , modalContent
+                , pictureContent
+                , categoryContent
+                , freeTagContent
+                , cityContent
+                , $placesService
+                , $utilityService
+                , $entitiesService) {
+
+                var vm = this;
+
+                vm.$entitiesService = $entitiesService;
+
+                $baseController.merge(vm, $baseController);
+
+                vm.$scope = $scope;
+                vm.notify = $entitiesService.getNotifier($scope);
+                vm.$uibModalInstance = $uibModalInstance;
+
+                vm.selectedCategory = null;
+                vm.selectedFreeTag = null,
+
+                vm.modalContent = modalContent;
+                vm.pictureContent = pictureContent;
+                vm.categoryContent = categoryContent;
+                vm.freeTagContent = freeTagContent;
+                vm.cityContent = cityContent;
+                vm.onCategoryChange = _onCategoryChange;
+                vm.addAttribute = _addAttribute;
+                
+                console.log("google place content:", vm.modalContent);
+                console.log("show city content:", vm.cityContent);
+
+                vm.letterLimit = 10;
+
+                function _onCategoryChange() {
+                    vm.addedAttributes = [];
+                    vm.attributes = [];
+
+                    return vm.$entitiesService.getEntityAttributes(vm.selectedCategory.tagName).success(onGetEntityAttributes);
+                }
+
+                function onGetEntityAttributes(data) {
+                    var items = data.items;
+
+                    vm.notify(function () {
+                        vm.attributes = items;
+                    });
+                }
+
+                function _addAttribute() {
+                    if (vm.attribute && vm.addedAttributes.indexOf(vm.attribute) === -1) {
+                        vm.addedAttributes.push(vm.attribute);
+                        //vm.attributes.splice(vm.attributes.indexOf(vm.attribute), 1);
+                    }
+                }
+
+                vm.save = function () {
+
+                    var address_components = vm.modalContent.address_components;
+                    var components = {};
+
+                    $.each(address_components, function (k, v1) {
+                        $.each(v1.types, function (k2, v2) {
+                            components[v2] = v1.short_name
+                        });
+                    })
+
+                    var tagIds = $.map(vm.selectedFreeTag || [], function (v) {
+                        return v.id;
+                    });
+
+                    var placeSlug = $utilityService.toSlug(vm.modalContent.name);
+
+                    if (vm.modalContent.price_level == null) {
+
+                        vm.modalContent.price_level = 0;
+
+                    } else { }
+
+
+                    console.log("Components >>", components);
+
+                    var placesObject = {
+
+                        Name: vm.modalContent.name,
+                        Description: vm.modalContent.name,
+                        OperatingHours: vm.modalContent.opening_hours ? vm.modalContent.opening_hours.weekday_text.join('\n') : "" || "Everyday",
+                        PhoneNumber: vm.modalContent.formatted_phone_number,
+                        Website: vm.modalContent.website,
+                        CategoryId: vm.selectedCategory.id,
+                        TagIds: tagIds,
+                        Slug: placeSlug + "-" + components.postal_code,
+                        ExtPlaceId: vm.modalContent.place_id,
+                        CityId: vm.cityContent || 33,
+                        Price: vm.modalContent.price_level,
+                        Address1: components.street_number + ' ' + components.route,
+                        City: components.locality || components.sublocality,
+                        State: components.administrative_area_level_1,
+                        ZipCode: components.postal_code,
+                        Latitude: vm.modalContent.geometry.location.lat(),
+                        Longitude: vm.modalContent.geometry.location.lng(),
+                        Url: vm.pictureContent
+                    };
+
+                    console.log("PAYLOAD OBJECT>>>", placesObject);
+                    $placesService.insert(placesObject, onSubmitPlace, onSubmitPlaceError);
+                    
+
+                };
+
+                function onSubmitPlace(data) {
+                    console.log("Post Success:", data)
+
+                    vm.existingId = data.item.id;
+
+                    $entitiesService.addRecord(vm.selectedCategory.tagName, data.item.id).success(onAddRecord);
+
+                    vm.$alertService.success(data.item.name + " has been discovered!", "New Place Added!");
+
+                    vm.$uibModalInstance.close();
+                }
+
+                function onAddRecord() {
+                    console.log("Record Added");
+                    
+                    var values = $.map(vm.addedAttributes, function (v) {
+                        return {
+                            RecordId: vm.existingId,
+                            AttributeId: v.attributeId,
+                            Entity: vm.selectedCategory.tagName,
+                            Value: v.value
+                        };
+                    });
+
+                    $entitiesService.addAttribtueValues(values);
+                }
+
+                function onSubmitPlaceError(data) {
+
+                    console.log("ERROR");
+                    vm.$alertService.error("Place may already exist or city is not selected!", "Error!");
+
+                }
+
+                vm.cancel = function () {
+                    vm.$uibModalInstance.dismiss('cancel');
+                };
+            }
+
+        })();
+    </script>
+
+</body>
+
+
+
+
+
+</html>
