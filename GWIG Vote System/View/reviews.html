@@ -1,0 +1,62 @@
+﻿<div ng-if="dashboard.items != null">
+    <span id="wantToGoTitle">Reviews</span>
+
+    <div class="col-md-pull-12" style="display:block" id="ttshowcase_0">
+        <div ng-repeat="review in dashboard.items">
+            <div class="row" style="display: inline;">
+
+                <div class="col-xs-11">
+                    <div class="ttshowcase_wrap tt_theme_speech">
+
+                        <div class="col-md-12">
+
+                            <!--Angular up/down vote test section-->
+                            <div class="row" style="position: absolute; margin-top: 40px; float: left;">
+                                <div class="col-xs-1" style="display: block">
+                                    <div>
+                                        <a class="vote" style="font-size: 1.3em" ng-style="{ color: review.netVote == 1 ? '#00FF00' : 'red'}" ng-click="dashboard.upVote(review)"><i class="fa fa-arrow-up"></i></a>
+                                        <span class="contentVoteCount" style="padding-left: 5px">{{ review.reviewPointScore }}</span>
+                                        <a class="vote" style="font-size: 1.3em" ng-style="{ color: review.netVote == -1 ? '#3399FF' : 'red'}" ng-click="dashboard.downVote(review)"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Angular up/down vote test section-->
+
+                            <div class="ttshowcase_rl_box tt_2cl tt_text_left " id="" style="padding-left: 50px">
+                                <div class="ttshowcase_rl_breed">
+                                    <div class="ttshowcase_rl_info_wrap tt_info-left tt_text_center">
+                                        <div class="ttshowcase_rl_aditional_info ">
+                                            <div class="ttshowcase_rl_title reviewer">
+                                                {{ review.subject }}
+                                            </div>
+                                            <div class="ttshowcase_rl_subtitle">
+                                                <a href="#" target="_blank">{{ review.userName }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tt_quote_info-left ttshowcase_rl_quote_sided summary">
+                                        <div class="ttshowcase_rl_quote">
+                                            <p style="color: black">{{ review.review }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span uib-rating ng-model="review.rating" max="{{review.rating}}" read-only="true" aria-labelledby="default-rating" style="color: #FFDF00"></span>
+
+                                <div class="dateCreated">{{ review.created | date }}</div>
+                            </div>
+                            <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="dashboard.items == null">
+    <span id="singlePlaceReviewsNoData">Be the first to Review!</span>
+</div>
+
+
